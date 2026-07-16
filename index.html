@@ -2,12 +2,23 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#120b07">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <meta
+    name="theme-color"
+    content="#120b07"
+  >
 
   <title>Küçük Bir Pati İzi</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 </head>
 
 <body>
@@ -16,14 +27,46 @@
 
     <section class="book-shell">
 
-      <div id="book" class="book">
+      <div
+        id="book"
+        class="book"
+      >
+
         <img
           id="pageImage"
-          src="kapak1.jpeg"
-          alt="Kitap kapağı"
+          src="kapak2.jpeg"
+          alt="Küçük Bir Pati İzi kitap kapağı"
         >
 
         <div class="shade"></div>
+
+        <div
+          id="finalCall"
+          class="final-call"
+        >
+
+          <p>
+            Bir sonraki sayfayı birlikte yazmak istersen...
+          </p>
+
+          <span class="special-date">
+            Rümeysa • 16.07.2026
+          </span>
+
+          <a
+            class="call-button"
+            href="tel:+905431988291"
+            aria-label="Cafer'i ara"
+          >
+            <span class="phone-icon">
+              ☎
+            </span>
+
+            Hikâyeye Devam Et
+          </a>
+
+        </div>
+
       </div>
 
       <div class="controls">
@@ -31,7 +74,7 @@
         <button
           id="prevBtn"
           type="button"
-          aria-label="Önceki sayfa"
+          aria-label="Önceki sayfaya git"
         >
           ← Geri
         </button>
@@ -47,7 +90,7 @@
         <button
           id="nextBtn"
           type="button"
-          aria-label="Sonraki sayfa"
+          aria-label="Sonraki sayfaya git"
         >
           İleri →
         </button>
@@ -56,9 +99,14 @@
 
       <div class="status">
 
-        <span id="counter">Kapak</span>
+        <span id="counter">
+          Kapak
+        </span>
 
-        <div class="progress">
+        <div
+          class="progress"
+          aria-hidden="true"
+        >
           <span id="bar"></span>
         </div>
 
