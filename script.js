@@ -18,11 +18,13 @@ const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const openBtn = document.getElementById("openBtn");
 const counter = document.getElementById("counter");
+const finalCall = document.getElementById("finalCall");
 
 const progressBar =
   document.getElementById("progressBar") ||
   document.getElementById("bar");
 
+// Görselleri önceden yükler.
 pages.forEach((page) => {
   const preloadImage = new Image();
   preloadImage.src = page.src;
@@ -44,10 +46,18 @@ function updateUI() {
   nextBtn.disabled = index === pages.length - 1;
 
   const isCover = index === 0;
+  const isFinalStoryPage = index === 15;
 
   openBtn.style.display = isCover ? "inline-block" : "none";
   prevBtn.style.visibility = isCover ? "hidden" : "visible";
   nextBtn.style.visibility = isCover ? "hidden" : "visible";
+
+  if (finalCall) {
+    finalCall.classList.toggle(
+      "show",
+      isFinalStoryPage
+    );
+  }
 }
 
 function turnPage(newIndex, direction) {
@@ -61,11 +71,17 @@ function turnPage(newIndex, direction) {
 
   locked = true;
 
-  book.classList.remove("flip-next", "flip-prev");
+  book.classList.remove(
+    "flip-next",
+    "flip-prev"
+  );
+
   void book.offsetWidth;
 
   book.classList.add(
-    direction === "next" ? "flip-next" : "flip-prev"
+    direction === "next"
+      ? "flip-next"
+      : "flip-prev"
   );
 
   setTimeout(() => {
@@ -74,7 +90,11 @@ function turnPage(newIndex, direction) {
   }, 290);
 
   setTimeout(() => {
-    book.classList.remove("flip-next", "flip-prev");
+    book.classList.remove(
+      "flip-next",
+      "flip-prev"
+    );
+
     locked = false;
   }, 620);
 }
@@ -91,12 +111,14 @@ prevBtn.addEventListener("click", () => {
   turnPage(index - 1, "prev");
 });
 
+// Telefonda sağa-sola kaydırma.
 let touchStartX = 0;
 
 book.addEventListener(
   "touchstart",
   (event) => {
-    touchStartX = event.changedTouches[0].screenX;
+    touchStartX =
+      event.changedTouches[0].screenX;
   },
   { passive: true }
 );
@@ -104,8 +126,11 @@ book.addEventListener(
 book.addEventListener(
   "touchend",
   (event) => {
-    const touchEndX = event.changedTouches[0].screenX;
-    const difference = touchEndX - touchStartX;
+    const touchEndX =
+      event.changedTouches[0].screenX;
+
+    const difference =
+      touchEndX - touchStartX;
 
     if (Math.abs(difference) < 45) {
       return;
@@ -120,20 +145,28 @@ book.addEventListener(
   { passive: true }
 );
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowRight") {
-    turnPage(index + 1, "next");
-  }
+// Bilgisayarda yön tuşları.
+document.addEventListener(
+  "keydown",
+  (event) => {
+    if (event.key === "ArrowRight") {
+      turnPage(index + 1, "next");
+    }
 
-  if (event.key === "ArrowLeft") {
-    turnPage(index - 1, "prev");
+    if (event.key === "ArrowLeft") {
+      turnPage(index - 1, "prev");
+    }
   }
-});
+);
 
-pageImage.addEventListener("error", () => {
-  console.error(
-    `Görsel yüklenemedi: ${pages[index].src}`
-  );
-});
+// Görsel hatası olursa konsola yazar.
+pageImage.addEventListener(
+  "error",
+  () => {
+    console.error(
+      `Görsel yüklenemedi: ${pages[index].src}`
+    );
+  }
+);
 
 updateUI();
