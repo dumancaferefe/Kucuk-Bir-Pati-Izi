@@ -1,12 +1,12 @@
 const pages = [
-  { src: "kapak1.jpeg", label: "Kapak" },
+  { src: "kapak2.jpeg", label: "Kapak" },
 
   ...Array.from({ length: 15 }, (_, i) => ({
     src: `${i + 1}.jpeg`,
     label: `Sayfa ${i + 1} / 15`
   })),
 
-  { src: "kapak2.jpeg", label: "Arka kapak" }
+  { src: "kapak1.jpeg", label: "Arka kapak" }
 ];
 
 let index = 0;
@@ -19,12 +19,10 @@ const nextBtn = document.getElementById("nextBtn");
 const openBtn = document.getElementById("openBtn");
 const counter = document.getElementById("counter");
 
-// HTML'de bar veya progressBar hangisi varsa onu bulur.
 const progressBar =
   document.getElementById("progressBar") ||
   document.getElementById("bar");
 
-// Görselleri önceden yükle.
 pages.forEach((page) => {
   const preloadImage = new Image();
   preloadImage.src = page.src;
@@ -64,8 +62,6 @@ function turnPage(newIndex, direction) {
   locked = true;
 
   book.classList.remove("flip-next", "flip-prev");
-
-  // Animasyonu yeniden tetikler.
   void book.offsetWidth;
 
   book.classList.add(
@@ -95,7 +91,6 @@ prevBtn.addEventListener("click", () => {
   turnPage(index - 1, "prev");
 });
 
-// Telefonda parmakla sağa-sola kaydırma.
 let touchStartX = 0;
 
 book.addEventListener(
@@ -125,7 +120,6 @@ book.addEventListener(
   { passive: true }
 );
 
-// Bilgisayar klavyesindeki yön tuşları.
 document.addEventListener("keydown", (event) => {
   if (event.key === "ArrowRight") {
     turnPage(index + 1, "next");
@@ -136,7 +130,6 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-// Görsel yüklenemezse hata bilgisi.
 pageImage.addEventListener("error", () => {
   console.error(
     `Görsel yüklenemedi: ${pages[index].src}`
